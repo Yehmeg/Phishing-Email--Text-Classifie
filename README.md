@@ -21,16 +21,56 @@ The project preprocesses email text, extracts TF-IDF features, trains multiple m
 
 ---
 
-## 📊 Dataset
 
-The dataset contains labeled email messages.
+## 📂 Dataset Statistics
 
-Classes:
+The dataset consists of labeled email messages categorized as **Safe (Legitimate)** and **Phishing** emails. It was used to train and evaluate the machine learning model for binary email classification.
 
-- Legitimate Email (Ham)
-- Phishing Email (Spam)
+### Dataset Overview
 
----
+| Attribute | Value |
+|-----------|------:|
+| Total Samples | **18,650** |
+| Safe Emails | **11,322** |
+| Phishing Emails | **7,328** |
+| Classification Type | Binary Classification |
+| Data Type | Text |
+| Features | Email Text |
+| Target Variable | Safe (0), Phishing (1) |
+
+### Class Distribution
+
+| Class | Label | Samples | Percentage |
+|------|:-----:|--------:|-----------:|
+| Safe Email | 0 | 11,322 | 60.71% |
+| Phishing Email | 1 | 7,328 | 39.29% |
+
+### Train-Test Split
+
+| Dataset | Samples | Percentage |
+|---------|--------:|-----------:|
+| Training Set | 14,920 | 80% |
+| Testing Set | 3,730 | 20% |
+
+### Data Preprocessing
+
+The following preprocessing steps were applied before training:
+
+- HTML tag removal
+- URL removal
+- Email address removal
+- Lowercase conversion
+- Whitespace normalization
+- Text cleaning using Regular Expressions (Regex)
+- TF-IDF Vectorization for feature extraction
+
+### Dataset Characteristics
+
+- **Problem Type:** Binary Text Classification
+- **Domain:** Cybersecurity / Email Security
+- **Language:** English
+- **Feature Extraction:** TF-IDF Vectorizer
+- **Target Classes:** Safe Email, Phishing Email
 
 ## 🛠 Technologies Used
 
@@ -47,24 +87,21 @@ Classes:
 
 ## Machine Learning Pipeline
 
+```text
 Email Text
-↓
-
+     │
+     ▼
 Text Cleaning
-
-↓
-
-TF-IDF Vectorizer
-
-↓
-
-Machine Learning Model
-
-↓
-
+     │
+     ▼
+TF-IDF Vectorization
+     │
+     ▼
+Stacking Classifier
+     │
+     ▼
 Prediction
-
----
+```
 
 ## Models Used
 
@@ -76,15 +113,52 @@ Prediction
 
 ---
 
-## Evaluation Metrics
+# 📊 Model Performance
 
-- Accuracy
-- Precision
-- Recall
-- F1 Score
-- ROC-AUC
+The Stacking Classifier achieved excellent performance on the test dataset.
+
+| Metric | Score |
+|---------|:-----:|
+| Accuracy | **96.84%** |
+| Precision (Weighted) | **96.88%** |
+| Recall (Weighted) | **96.84%** |
+| F1-Score (Weighted) | **96.84%** |
+| Macro Precision | **96.48%** |
+| Macro Recall | **96.95%** |
+| Macro F1-Score | **96.70%** |
+| ROC-AUC | **99.62%** |
+
+## 📉 ROC Curve
+
+![ROC Curve](ROC.png)
+---
+
+## Class-wise Performance
+
+| Class | Precision | Recall | F1-Score | Support |
+|--------|:---------:|:------:|:--------:|--------:|
+| Safe Email | 98.33% | 96.42% | 97.37% | 2264 |
+| Phishing Email | 94.64% | 97.48% | 96.03% | 1466 |
 
 ---
+
+## Confusion Matrix
+
+| Actual \ Predicted | Safe | Phishing |
+|--------------------|-----:|---------:|
+| Safe | **2183** | 81 |
+| Phishing | 37 | **1429** |
+
+## 📈 Confusion Matrix
+
+![Confusion Matrix](confusion.png)
+
+---
+
+
+The model correctly classified **3612 out of 3730** test emails, resulting in an overall accuracy of **96.84%**.
+
+
 
 ## Repository Structure
 
@@ -93,11 +167,10 @@ Phishing-Email-Text-Classifier
 │
 ├── README.md
 ├── requirements.txt
-├── app.py
 ├── final_phishingdetection.ipynb
-├── phishing_model.pkl
-├── vectorizer.pkl
-├── images
+├── Phishing_Email.zip
+├── ROC.png
+├── confusion.png
 └── LICENSE
 ```
 
